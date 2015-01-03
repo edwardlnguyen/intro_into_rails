@@ -50,4 +50,10 @@ class UserTest < ActiveSupport::TestCase
   		assert_not @user.valid?, "#{x.inspect} should be valid"
   	end
   end
+
+  test "email: should be UNIQUE" do
+  	temp_user = @user.dup
+    @user.save
+    assert_not temp_user.valid?
+  end
 end
