@@ -56,4 +56,10 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_not temp_user.valid?
   end
+
+  test "email: should be saved as lowercase" do
+  	@user.email = @user.email.upcase
+  	@user.save
+  	puts @user.email
+  end
 end
