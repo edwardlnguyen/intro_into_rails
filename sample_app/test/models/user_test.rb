@@ -6,7 +6,7 @@ class UserTest < ActiveSupport::TestCase
   # end
 
   def setup 
-  	@user = User.new(name: "temp", email: "temp@mail.com")
+  	@user = User.new(name: "temp", email: "temp@mail.com", password: "asdf1234", password_confirmation: "asdf1234")
   end
 
   test "should be valid" do
@@ -22,6 +22,11 @@ class UserTest < ActiveSupport::TestCase
   	@user.email = "   "
   	assert_not @user.valid?
   end
+
+  test "password should be present" do
+  	@user.password = @user.password_confirmation = "    "
+  	assert_not @user.valid?
+  end 
 
   test "length of name should be no longer than 50 char" do
   	@user.name = "a" * 51
@@ -62,4 +67,12 @@ class UserTest < ActiveSupport::TestCase
   	@user.save
   	puts @user.email
   end
+
+  test "password: minimum length must accept be at least 6 char" do
+  	@user.password = @user.password_confirmation = "a" * 5
+  	assert_not @user.valid?
+  end
+
+  test "password: authentication must accept correct password"
+
 end
